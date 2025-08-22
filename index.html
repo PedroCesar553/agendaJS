@@ -52,6 +52,26 @@
             }, 5000);
         }
 
+        // Função para mostrar mensagem de sucesso (tarefa concluída)
+        function mostrarSucesso(mensagem) {
+            let elemento = document.getElementById('mensagem-sucesso');
+
+            if (!elemento) {
+                elemento = document.createElement('div');
+                elemento.id = 'mensagem-sucesso';
+                elemento.className = 'mensagem-sucesso';
+                document.querySelector('.container').insertBefore(elemento, document.getElementById('lista-de-tarefas'));
+            }
+
+            elemento.textContent = mensagem;
+            elemento.classList.add('mostrar');
+
+            // Esconder após 3 segundos
+            setTimeout(() => {
+                elemento.classList.remove('mostrar');
+            }, 3000);
+        }
+
         // Função para formatar a data no formato dd/mm/aaaa
         function formatarData(dataISO) {
             if (!dataISO) return '';
@@ -59,7 +79,6 @@
             const partes = dataISO.split('-');
             if (partes.length !== 3) return dataISO;
             
-            // Formato d/m/a (dia/mês/ano)
             return `${partes[2]}/${partes[1]}/${partes[0]}`;
         }
 
@@ -91,7 +110,6 @@
                 
                 const dataTarefa = document.createElement('div');
                 dataTarefa.className = 'data-tarefa';
-                // Data formatada corretamente
                 dataTarefa.textContent = formatarData(tarefa.data);
                 conteudoTarefa.appendChild(dataTarefa);
                 
@@ -125,6 +143,10 @@
                     tarefa.concluida = !tarefa.concluida;
                     salvarTarefas();
                     renderizar();
+
+                    if (tarefa.concluida) {
+                        mostrarSucesso('Tarefa concluída!');
+                    }
                 };
                 botoesAcao.appendChild(botaoConcluir);
 
@@ -140,7 +162,6 @@
             const campoData = document.getElementById('seleciona-data');
             const prazo = campoData.value;
 
-            // Validação dos campos
             if (!tarefa && !prazo) {
                 mostrarErro('Por favor, preencha ambos os campos: tarefa e data!');
                 return;
@@ -168,7 +189,6 @@
             salvarTarefas();
             renderizar();
             
-            // Limpar os campos
             campoTarefa.value = '';
             campoData.value = '';
         };

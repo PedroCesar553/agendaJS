@@ -103,6 +103,32 @@ h1 {
     font-size: 1.2rem;
 }
 
+/* Mensagem de sucesso */
+.mensagem-sucesso {
+    background-color: #d4edda; /* verde claro */
+    color: #28a745;            /* verde escuro */
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #28a745;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+
+.mensagem-sucesso::before {
+    content: "✔";
+    font-size: 1.2rem;
+}
+
+.mensagem-sucesso.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* container da lista */
 #lista-de-tarefas {
     display: flex;
